@@ -1,0 +1,75 @@
+<style>
+    .single{
+        width: 100%;
+        height: 30%;
+    }
+</style>
+<div ng-controller="DashboardController as dashboardCtrl">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="navbar-text ">
+                        Welcome <a href="#">{{username | uppercase}}</a> To Crossover Video Player
+                    </h4>
+                </div>
+                <div class="col-md-6">
+                    <a href="#" class="navbar-link">
+                        <div class="" ng-controller="LoginController as loginCtrl">
+                            <button type="button" class="btn btn-danger pull-right" style="margin-top: 1%;" ng-click="logout()" name="button">Logout</button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </nav>
+<div ng-controller="VideoController as videoCtrl" >
+    <div ng-if="single_video.length !== 0" class="col-md-9" style="padding:3%;">
+        <p>{{single_video.name }}</p>
+        <videogular
+                id="{{single_video._id}}"
+                vg-auto-play="true"
+                ng-click="dashboardCtrl.getSingleVideo($event)"
+                vg-player-ready="dashboardCtrl.onPlayerReady($API, $index)"
+                vg-update-state="dashboardCtrl.onUpdateState($state, $index)"
+                style="width: 100%; height:100%;"
+                vg-theme="dashboardCtrl.config.theme.url">
+            <vg-media
+                    vg-src="single_video.url"
+                    vg-tracks="dashboardCtrl.config.tracks"
+                    vg-native-controls="true">
+            </vg-media>
+        </videogular>
+        <div ng-init="rating = star.rating +1"></div>
+        <div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)"></div>
+        <p>{{ single_video.description }}</p>
+    </div>
+
+
+    <div class="col-md-3" style="margin-top: 35px;">
+        <div class="row"  ng-repeat="video in videos.data">
+            <a href="#"   ng-click="dashboardCtrl.getSingleVideo($event)">{{ video.name }}</a>
+            <videogular
+                    id="{{video._id}}"
+                    ng-click="dashboardCtrl.getSingleVideo($event)"
+                    vg-player-ready="dashboardCtrl.onPlayerReady($API, $index)"
+                    vg-update-state="dashboardCtrl.onUpdateState($state, $index)"
+                    style="width: 250px; height:204px;"
+                    vg-theme="dashboardCtrl.config.theme.url">
+                <vg-media
+                        vg-src="video.url"
+                        vg-tracks="dashboardCtrl.config.tracks"
+                        vg-native-controls="true">
+                </vg-media>
+            </videogular>
+
+
+            <div ng-init="rating = star.rating +1"></div>
+            <div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)"></div>
+            <p>{{ video.description | limitTo:120 }} {{video.description.lenth > 120 ? '...' : '' }} </p>
+        </div>
+    </div>
+</div>
+</div>
+
