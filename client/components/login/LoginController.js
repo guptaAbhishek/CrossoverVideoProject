@@ -23,9 +23,7 @@
         });
 
       }else{
-
         alert('Please Enter the Username/password');
-
       }
     };
 

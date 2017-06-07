@@ -1,8 +1,48 @@
+/**
+ * app.js
+ * backbone of the frontend
+ * configuration,routing
+ *
+ * */
+
 (function(){
+
   'use strict';
-  var app = angular.module('VideoApp',['ui.router','angular-md5','angular-loading-bar','ngSanitize','com.2fdevs.videogular','infinite-scroll']);
-    app.config(['$locationProvider','$stateProvider','$urlRouterProvider','cfpLoadingBarProvider',function($locationProvider,$stateProvider,$urlRouterProvider,cfpLoadingBarProvider){
+
+    /**
+     * using ui.router for routing
+     * angular-loading-bar for showing the loading progress on the top
+     * com.2fdevs.videogular for the video rendering
+     * infinte-scroll to implement the auto loading of the vidoes
+     * while using the verticle scroll
+      * @type {*}
+     */
+
+
+  var app = angular.module('VideoApp',[
+      'ui.router',
+      'angular-md5',
+      'angular-loading-bar',
+      'ngSanitize',
+      'com.2fdevs.videogular',
+      'infinite-scroll']
+  );
+
+  /**
+   * app configuration
+   * */
+    app.config([
+        '$locationProvider',
+        '$stateProvider',
+        '$urlRouterProvider',
+        'cfpLoadingBarProvider',function($locationProvider,$stateProvider,$urlRouterProvider,cfpLoadingBarProvider){
+
+      /**
+       * Uncomment the following to show spinner
+       * cfpLoadingBarProvider.includeSpinner = true
+       * */
       cfpLoadingBarProvider.includeSpinner = false;
+
 
       $locationProvider.html5Mode({
         enabled: true,
@@ -11,6 +51,14 @@
 
       var userInfo;
 
+
+      /**
+       * $q : object for service that helps you run functions asynchronously,
+       * and use their return values (or exceptions) when they are done processing.
+       *
+       * LoginService to provide login
+       *
+       * */
       var loginRequired = ['$q','LoginService',function($q,LoginService) {
            userInfo = LoginService.getUserInfo();
           if(userInfo){
@@ -18,8 +66,6 @@
           }else{
             return $q.reject({authenticated:false});
           }
-
-
       }];
 
         $stateProvider

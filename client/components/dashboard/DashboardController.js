@@ -78,10 +78,15 @@
 
 
       this.getSingleVideo = function(video_id){
-          var vId = video_id.currentTarget.attributes[0].nodeValue;
-          console.log('vid = > ',vId);
-          $state.go('/videoview',{videoId:vId,sessionId:$stateParams.sessionId});
-          $scope.states = '/videoview';
+          if(video_id != "undefined" && video_id != null){
+              var vId = video_id.currentTarget.attributes[0].nodeValue;
+              $state.go('/videoview',{videoId:vId,sessionId:$stateParams.sessionId});
+              $scope.states = '/videoview';
+          }else{
+
+          }
+
+
       };
 
         // get the Ratings of the video

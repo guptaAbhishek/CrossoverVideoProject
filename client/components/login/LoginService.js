@@ -36,7 +36,6 @@ angular.module('VideoApp').factory('LoginService',['$http','$window','$q','$loca
       return deferred.promise;
     },
     logOut:function(){
-      var sessionId;
       var deferred = $q.defer();
       $http({
         url:'/user/logout',

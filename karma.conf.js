@@ -26,10 +26,11 @@ module.exports = function(config) {
         'client/app.js',
         'client/min/app.js',
         'client/components/**/*.js',
-        'test/controller/*.js',
-        'test/filter/*.js',
-        'test/directive/*.js',
-        'test/service/*.js',
+        'test/controller/login-controller-spec.js'
+        // 'test/controller/*.js',
+        // 'test/filter/*.js',
+        // 'test/directive/*.js',
+        // 'test/service/*.js',
     ],
 
 
@@ -96,4 +97,4 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   })
-}
+};
